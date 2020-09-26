@@ -1,0 +1,9 @@
+&-page {
+  &-index {
+    @import "./index.scss";
+  }
+
+  &-login {
+    @import "./login.scss";
+  }
+}

@@ -1,0 +1,72 @@
+.sm-toggle {
+  --inset: 2px;
+  --height: 24px;
+  --width: calc(var(--height) * 2);
+  --accent: #0b0a0a;
+
+  margin: 2px;
+  position: relative;
+  display: inline-block;
+
+  &:focus { 
+    border-color: #666;
+  }
+
+  &:focus.checked { 
+    border-color: rgb(182, 182, 182);
+  }
+
+  outline: 0;
+  border: 3px solid transparent;
+  border-radius: 100px;
+
+  input {
+    display: none;
+  }
+
+  label {
+    display: block;
+    width: var(--width);
+    height: var(--height);
+    text-indent: -150%;
+    clip: rect(0, 0, 0, 0);
+    color: transparent;
+    user-select: none;
+
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      cursor: pointer;
+    }
+
+    &::before {
+      width: 100%;
+      height: 100%;
+      background-color: #dedede;
+      border-radius: 100px;
+      -webkit-transition: background-color 0.25s ease;
+      transition: background-color 0.25s ease;
+    }
+
+    &::after {
+      top: var(--inset);
+      left: var(--inset);
+      width: calc(var(--width) / 2 - var(--inset) * 2);
+      height: calc(var(--height) - var(--inset) * 2);
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+      -webkit-transition: left 0.25s ease;
+      transition: left 0.25s ease;
+    }
+  }
+
+  input:checked + label::before {
+    background-color: var(--accent);
+  }
+  input:checked + label::after {
+    left: calc(var(--width) / 2 + var(--inset));
+  }
+}

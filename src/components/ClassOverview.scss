@@ -1,0 +1,19 @@
+.sm-class-overview {
+  padding: 10px;
+
+  .blurb {
+    background: #e8eee6;
+    box-shadow: 0px 4px 10px 0px #ababab 25%;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 20px;
+
+    p {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+}

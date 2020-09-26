@@ -1,0 +1,57 @@
+.sm-button {
+  --outline-size: 3px;
+  --radius: 20px;
+  --padding: 16px;
+  --scale: 0.95;
+
+  &.primary-button {
+    background: #5a7d57;
+    color: #fff;
+
+    &:focus {
+      border-color: #333;
+    }
+  }
+
+  &.secondary-button {
+    background: #ffffff;
+    color: #555;
+
+    &:focus {
+      border-color: #555;
+    }
+  }
+
+  &.transparent-button {
+    --outline-size: 1px;
+    --padding: 8px;
+
+    background: transparent;
+    color: #666;
+
+    &:focus { 
+      border-color: #666;
+    }
+  }
+
+  border: var(--outline-size) solid transparent;
+  border-radius: var(--radius);
+  padding: calc(var(--padding) - var(--outline-size)) calc(2 * var(--padding) - var(--outline-size));
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    transform: scale(var(--scale));
+  }
+
+  &:focus {
+    padding: calc(var(--padding) - var(--outline-size)) calc(2 * var(--padding) - var(--outline-size));
+    border: var(--outline-size) solid;
+    border-radius: var(--radius);
+    outline: 0;
+  }
+}

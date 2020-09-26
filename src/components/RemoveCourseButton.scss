@@ -1,0 +1,23 @@
+.sm-button {
+  &.sm-button-remove-course {
+    // TODO: Unify image-based button components.
+
+    --padding: 0;
+    --inner-padding: 4px;
+
+    border: none;
+    border-radius: 50%;
+
+    img {
+      padding: var(--inner-padding);
+    }
+
+    &:focus {
+      img {
+        padding: calc(var(--inner-padding) - var(--outline-size));
+      }
+
+      border-radius: 50%;
+    }
+  }
+}

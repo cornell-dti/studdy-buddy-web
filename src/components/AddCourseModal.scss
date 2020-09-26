@@ -1,0 +1,50 @@
+.sm-add-course-modal {
+  z-index: 1111;
+
+  &.closed {
+    display: none !important;
+  }
+
+  .content {
+    .content-header {
+      flex-wrap: nowrap;
+    }
+
+    .sm-button {
+      &-close {
+        --side-padding: 13px;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 30px;
+
+        padding-left: var(--side-padding);
+        padding-right: var(--side-padding);
+
+        &::focus {
+          padding-left: calc(var(--side-padding) - var(--outline-size));
+          padding-right: calc(var(--side-padding) - var(--outline-size));
+        }
+      }
+    }
+  }
+
+  &.open {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.65);
+
+    .content {
+      width: 50vw;
+      height: 75vh;
+      padding: 55px;
+      background: #efefef;
+    }
+  }
+}
+
+body.modal {
+  overflow: hidden;
+}

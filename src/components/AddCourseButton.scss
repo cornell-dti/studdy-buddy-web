@@ -1,0 +1,23 @@
+.sm-button {
+  &.sm-button-add-course {
+    --padding: 0;
+    --inner-padding: 16px;
+
+    border: none;
+    border-radius: 50%;
+
+    img {
+      padding: var(--inner-padding);
+      width: 19px;
+      height: 19px;
+    }
+
+    &:focus {
+      img {
+        padding: calc(var(--inner-padding) - var(--outline-size));
+      }
+
+      border-radius: 50%;
+    }
+  }
+}

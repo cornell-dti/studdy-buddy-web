@@ -1,0 +1,28 @@
+.sm-chat {
+  background: #fcfcfc;
+  height: 100vh;
+
+  .sm-button-call {
+    --padding: 8px;
+  }
+
+  h4 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .sm-chat-view {
+    background: #f8f5f5;
+    padding: 0;
+    border-radius: 40px;
+    box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+    height: 400px;
+    padding: 20px;
+  }
+
+  .call-icon {
+    height: 20px;
+  }
+}
