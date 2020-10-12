@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Course } from 'src/types';
+import { Course } from '../types';
 
 import { searchCourses } from '../hooks';
 
 import './SearchBar.scss';
 
-interface Props {
+export interface Props {
     onSelect: (course: Course) => void;
 }
 

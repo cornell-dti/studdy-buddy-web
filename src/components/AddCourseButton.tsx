@@ -3,7 +3,7 @@ import React from 'react'
 import './AddCourseButton.scss';
 import Button from './Button';
 
-interface Props {
+export interface Props {
     onClick: () => void
 }
 

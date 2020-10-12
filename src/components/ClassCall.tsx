@@ -3,7 +3,7 @@ import Jitsi from 'react-jitsi';
 
 import './ClassCall.scss';
 
-interface Props {
+export interface Props {
 }
 
 const ClassCall: React.FC<Props> = ({ }) => {

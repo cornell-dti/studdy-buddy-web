@@ -1,9 +1,10 @@
 import React from 'react'
 
-import './RemoveCourseButton.scss';
 import Button from './Button';
 
-interface Props {
+import './RemoveCourseButton.scss';
+
+export interface Props {
     onClick: () => void
 }
 

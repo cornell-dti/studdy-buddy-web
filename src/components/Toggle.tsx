@@ -4,7 +4,7 @@ import './Toggle.scss';
 
 let id = 0;
 
-interface Props {
+export interface Props {
     checked: boolean;
     onChange: (newValue: boolean) => void;
 }

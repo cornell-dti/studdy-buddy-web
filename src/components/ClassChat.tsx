@@ -1,23 +1,33 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import Button from './Button';
 import ClassCall from './ClassCall';
 
-import { useChatHistory } from "../util/chat"
+import { sendChatMessage, useChatHistory } from "../util/chat"
+import { useMyCourses } from '../hooks';
 
 import { Col, Item, Row } from './Grid';
 
 import './ClassChat.scss';
+import TextInput from './TextInput';
 
-interface Props {
+
+export interface Props {
     courseId: string | null
 }
 
 const ClassChat: React.FC<Props> = ({ courseId = null }) => {
     const [call, setCall] = useState(false);
+    const [chatMessage, setChatMessage] = useState('');
     const history = useChatHistory(courseId);
 
+    const courses = useMyCourses();
+
+    const course = useMemo(() => {
+        return courses.find(c => c.courseId === courseId) ?? null;
+    }, [courseId, courses]);
+
     return (
-        <Col className="sm-chat">
+        <Col className="no-gutter sm-chat">
             <Item>
                 <Row align="center">
                     <Item fill={true}><h4>Chats</h4></Item>
@@ -31,14 +41,14 @@ const ClassChat: React.FC<Props> = ({ courseId = null }) => {
                     </Item>
                 </Row>
             </Item>
-            {courseId ? <Item className="sm-chat-view">
+            {course ? <Item className="sm-chat-view">
                 {call && <ClassCall />}
 
                 <Col className="no-gutter h-100">
                     <Item fill={true}>
                         <Row align="center">
                             <Item grow={true}>
-                                <h3>{courseId}</h3>
+                                <h3>{course.title}</h3>
                             </Item>
                             <Item>
                                 <Button theme="transparent" onClick={() => console.debug("Close")}>
@@ -55,7 +65,13 @@ const ClassChat: React.FC<Props> = ({ courseId = null }) => {
                         }</span>: <span>{h.name}</span>| {h.text}</div>)}
                     </Item>
                     <Item>
-                        <input />
+                        <TextInput value={chatMessage} onChange={(value) => setChatMessage(value)}></TextInput>
+                        <Button onClick={
+                            () => {
+                                sendChatMessage(course.courseId, chatMessage)
+                                setChatMessage('');
+                            }
+                        }>Send</Button>
                     </Item>
                 </Col>
             </Item> : <Item><h3>No Chat Open</h3></Item>}

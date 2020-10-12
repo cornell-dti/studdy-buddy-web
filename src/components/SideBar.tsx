@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { joinChatRoom } from '../util/chat';
 import { useMyCourses } from '../hooks';
 import { Course } from '../types';
 
@@ -8,34 +10,34 @@ import { Col, Item, Row } from './Grid';
 
 import './SideBar.scss';
 
-interface Props {
-    courses: Course[];
-    currentCourse: string | null;
-    loadCourse(id: string): void;
+export interface Props {
+
 }
 
 interface EntryProps {
     course: Course;
-    currentCourse: string | null;
-    loadCourse(id: string): void;
 }
 
-const CourseEntry: React.FC<EntryProps> = ({ course, ...props }) => {
+const CourseEntry: React.FC<EntryProps> = ({ course }) => {
+    const currentCourse = useSelector(state => state.selectedCourse);
+
     return (
-        <li className={`${props.currentCourse === course.courseId ? 'selected' : ''}`}
-            onClick={() => props.loadCourse(course.courseId)}>
-            <p>{course.subject} <span>{course.courseNumber}</span></p>
-            <p>{course.title}</p>
+        <li className={`sm-course-entry ${currentCourse === course.courseId ? 'selected' : ''}`}>
+            <button onClick={() => joinChatRoom(course.courseId)}>
+                <p>{course.subject} <span>{course.courseNumber}</span></p>
+                <p>{course.title}</p>
+            </button>
         </li>
     );
 }
 
-const SideBar: React.FC<Props> = (props) => {
-    const [, setMyCourses] = useMyCourses();
+const SideBar: React.FC<Props> = () => {
     const [open, setOpen] = useState(false);
 
+    const courses = useMyCourses();
+
     return (
-        <Col align="center" className="sm-sidebar">
+        <Col align="center" className="sm-sidebar no-gutter">
             <img alt="Study Buddy" className="wordmark" src="/assets/wordmark.svg" />
 
             <Item fill={true}>
@@ -50,16 +52,13 @@ const SideBar: React.FC<Props> = (props) => {
 
 
                 <AddCourseModal
-                    onUpdate={(courses) => {
-                        setMyCourses([...courses]);
-                    }}
                     onClose={() => setOpen(false)}
                     open={open}>
                 </AddCourseModal>
             </Item>
-            <Item>
-                <ul>
-                    {props.courses.map(course => <CourseEntry key={course.courseId} course={course} {...props} />)}
+            <Item fill={true}>
+                <ul className="sm-course-list">
+                    {courses.map(course => <CourseEntry key={course.courseId} course={course} />)}
                 </ul>
             </Item>
         </Col>

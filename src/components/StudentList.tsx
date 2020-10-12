@@ -9,7 +9,7 @@ interface BubbleProps {
     defaultUrl: string;
 }
 
-interface Props {
+export interface Props {
     defaultUrl: string;
     students: Student[];
 }

@@ -1,4 +1,11 @@
 & {
+  .item {
+    &.sidebar,
+    &.overview,
+    &.chat {
+        padding: 0;
+    }
+  }
   .item.sidebar {
     width: 275px;
   }

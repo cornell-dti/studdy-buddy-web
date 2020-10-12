@@ -2,13 +2,13 @@ import React from 'react';
 
 import './Grid.scss';
 
-interface Props {
+export interface Props {
     className?: string;
 }
 
 export const Grid: React.FC<Props> = ({ children, className = '' }) => <div className={`grid ${className}`}>{children}</div>;
 
-interface ItemProps extends Props {
+export interface ItemProps extends Props {
     fill?: boolean;
     grow?: boolean;
 }
@@ -17,7 +17,7 @@ export const Item: React.FC<ItemProps> = ({ children, grow = false, fill = false
     `item ${grow ? 'grow' : ''} ${fill ? 'fill' : ''} ${className}`
 }>{children}</div>;
 
-interface AlignProps extends Props {
+export interface AlignProps extends Props {
     align?: 'center';
 }
 

@@ -6,7 +6,7 @@ import { Col, Grid, Item, Row } from './Grid';
 import StudentList from './StudentList';
 import Toggle from './Toggle';
 
-interface Props {
+export interface Props {
     joinChat: () => void
 }
 

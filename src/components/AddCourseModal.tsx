@@ -1,19 +1,23 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react'
-import { Course } from 'src/types';
+import { useDispatch } from 'react-redux';
+import { Actions } from '../actions';
+import { Course } from '../types';
 
 import './AddCourseModal.scss';
 import Button from './Button';
 import { Col, Item, Row } from './Grid';
+import RemoveCourseButton from './RemoveCourseButton';
 import SearchBar from './SearchBar';
 
-interface Props {
+export interface Props {
     open: boolean;
-    onClose: () => void,
-    onUpdate: (courses: Course[]) => void
+    onClose: () => void;
 }
 
-const AddCourseModal: React.FC<Props> = ({ open, onUpdate, onClose }) => {
+const AddCourseModal: React.FC<Props> = ({ open, onClose }) => {
     const [courses, setCourses] = useState([] as Course[]);
+
+    const dispatch = useDispatch();
 
     const onKeyDown = useCallback((event: KeyboardEvent) => {
         if (event.key === 'Escape') {
@@ -37,6 +41,20 @@ const AddCourseModal: React.FC<Props> = ({ open, onUpdate, onClose }) => {
         };
     }, [open, onKeyDown]);
 
+    const removeCourse = useCallback((course: Course) => {
+        const i = courses.findIndex(c => c.courseId === course.courseId)
+
+        if (i >= 0) {
+            setCourses([...courses.slice(0, i), ...courses.slice(i + 1)])
+        }
+    }, [courses]);
+
+    const addCourse = useCallback((course: Course) => {
+        if (!courses.some(c => c.courseId === course.courseId)) {
+            setCourses([...courses, course]);
+        }
+    }, [courses]);
+
     return (
         <div className={`sm-add-course-modal col center vertical-center ${open ? `open` : `closed`}`}
             role="dialog"
@@ -58,36 +76,32 @@ const AddCourseModal: React.FC<Props> = ({ open, onUpdate, onClose }) => {
                 <Item fill={true} grow={true}>
                     <Col className="h-100">
                         <Item>
-                            <SearchBar onSelect={(course) => {
-                                if (!courses.some(c => c.courseId === course.courseId))
-                                    setCourses([...courses, course]);
-                            }} />
+                            <SearchBar onSelect={(course) => addCourse(course)} />
                         </Item>
                         <Item>
                             <h2>Selected Courses</h2>
                         </Item>
                         <Item>
                             <ul>
-                                {courses.map(course => <li key={course.courseId}>{course.title}
-                                    <button onClick={() => {
-                                        const i = courses.findIndex(c => c.courseId === course.courseId)
-                                        if (i >= 0) {
-                                            const update = courses.slice();
-                                            update.splice(i, 1);
-                                            return update;
-                                        } else {
-                                            courses.push(course);
-
-                                            return [...courses];
-                                        }
-                                    }}>x</button></li>)}
+                                {courses.map(course => (
+                                    <li key={course.courseId}>{course.title}
+                                        <RemoveCourseButton onClick={() => removeCourse(course)}>x</RemoveCourseButton>
+                                    </li>
+                                ))}
 
                             </ul>
                         </Item>
                     </Col>
                 </Item>
                 <Item>
-                    <Button onClick={() => onUpdate(courses)}>Update Selected Courses</Button>
+                    <Button onClick={() => {
+                        dispatch({
+                            type: Actions.ADD_COURSES,
+                            courses
+                        });
+
+                        onClose();
+                    }}>Update Selected Courses</Button>
                 </Item>
             </Col></Item>
         </div>

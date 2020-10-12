@@ -1,0 +1,17 @@
+.highlight {
+  .grid, &.grid {
+    border: 2px solid rgb(44, 189, 0);
+  }
+
+  &.col, .col {
+    border: 2px solid rgb(11, 11, 255);
+  }
+
+  &.row, .row {
+    border: 2px solid rgb(255, 6, 6);
+  }
+
+  .item {
+    border: 2px dotted rgb(255, 231, 15);
+  }
+}
